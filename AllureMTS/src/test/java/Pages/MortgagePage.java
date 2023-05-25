@@ -2,6 +2,7 @@ package Pages;
 
 import Data.UserData;
 import Tools.SelenideTools;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import Data.RandomData.RandomPhoneNumber;
 import static com.codeborne.selenide.Condition.text;
@@ -37,12 +38,13 @@ public class MortgagePage {
     private final By BUTTON_NEXT = By.xpath("(//*[@class='Inner-sc-1rfqasg-0 jviKiO Inner-sc-48arcs-0 bqTsRY'])[5]");
 
     private final By ASSERT_DATA_OF_BIRTH = By.xpath("//*[@id='pers-info-form']/div[1]/div[2]/div[2]");
-
+    @Step("Выбираем ипотеку для IT специалистов")
     public MortgagePage chooseMortgage()  {
         selTools.clickButton(PROGRAMS);
         selTools.clickButton(IT_MORTGAGE);
         return this;
     }
+    @Step("Заролняем персональные данные")
     public MortgagePage offerMortgage () {
         String randNumber = RandomPhoneNumber.tsifri();
         selTools.clickButton(MORTGAGE_CALCULATION);
@@ -60,7 +62,7 @@ public class MortgagePage {
         selTools.clickButton(BUTTON_NEXT);
         return this;
     }
-
+    @Step("Проверка возроста на окончание выплаты ипотеки")
     public MortgagePage failassertdateofbirth() {
         $(ASSERT_DATA_OF_BIRTH).shouldHave(text("Возраст клиента должен быть не более 65 лет на дату окончания ипотечного кредитования"));
         return this;

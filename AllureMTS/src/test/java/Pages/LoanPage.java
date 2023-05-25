@@ -2,6 +2,7 @@ package Pages;
 
 import Data.UserData;
 import Tools.SelenideTools;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import Data.RandomData.RandomPhoneNumber;
 import static com.codeborne.selenide.Condition.text;
@@ -9,7 +10,7 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class LoanPage {
 
-    UserData data = new UserData("","@mail.ru","Алексеев Алексей Алексеевич","36","1000000","","");
+    UserData data = new UserData("","@mail.ru","Алексеев Алексей Алексеевич","24","2000000","","");
 
     SelenideTools selTools = new SelenideTools();
 
@@ -31,7 +32,7 @@ public class LoanPage {
 
     private final By ASSERT_EMAIL = By.xpath("//div[@class='Wrapper-sc-1vydk7-0 OlnRe HelperText-sc-jsokzo-0 hByJHf styled__InputHelperTextWithIndent-sc-1l7185y-0 iLSKfQ']");
 
-    /*element.sendKeys(Keys.chord(Keys.CONTROL, "a"));*/
+    @Step("Зполняем заявку на рефинансирование кредита")
     public LoanPage offerLoan() {
         String randNumber = RandomPhoneNumber.tsifri();
         selTools.clickButton(LOAN_CALCULATION);
@@ -43,7 +44,7 @@ public class LoanPage {
         selTools.clickButton(BUTTON_NEXT);
         return this;
     }
-
+    @Step("Проверяем корректность заполнения эллектронного адресса")
     public LoanPage failureOfferLoanIncorrectEmail() {
         $(ASSERT_EMAIL).shouldHave(text("Введите верный электронный адрес"));
         return this;

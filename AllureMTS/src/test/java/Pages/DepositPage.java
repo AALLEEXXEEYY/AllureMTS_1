@@ -3,6 +3,7 @@ package Pages;
 import Data.RandomData.RandomPhoneNumber;
 import Data.UserData;
 import Tools.SelenideTools;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
@@ -22,7 +23,7 @@ public class DepositPage {
     private final By CONSENT = By.xpath("//*[@id='depositForm']/div[2]/form/div[3]/label/div[1]");
     private final By BUTTON_NEXT = By.xpath("//*[@id='depositForm']/div[2]/form/button");
     private final By CONSENT_ERROR = By.xpath("//*[@id='depositForm']/div[2]/form/div[4]");
-
+    @Step("Выбираем подходящий депозит и заполняем данные и нажимаем(убираем галочку) на кнопку принять согласие на обработку данных")
         public DepositPage offerDeposit() {
         String randNumber = RandomPhoneNumber.tsifri();
         selTools.clickButton(CHOOSE_PREMIALNI_MTS);
@@ -39,7 +40,7 @@ public class DepositPage {
         selTools.clickButton(BUTTON_NEXT);
         return this;
     }
-
+    @Step("Проверка на согласие обработки персональных данных")
     public DepositPage conditions_for_submitting_an_application() {
         $(CONSENT_ERROR).shouldHave(text("Вы должны принять условия для отправки заявки"));
         return this;
